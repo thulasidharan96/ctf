@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF</title>
+    <link rel="icon" type="image/x-icon" href="templates/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="templates/css/style.css">
+</head>
+<body>
+    
+    <div class="container-fluid bg-dark py-3">
+        <!-- Header container -->
+        <div class="container header">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <h1 class="text-white text-center mb-0">CTF Platform</h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center gap-5 headerLink">
+                    <div class="header-item">
+                        <a href="/home" class="text-white"><i class="fas fa-tasks me-2"></i>Challenges</a>
+                    </div>
+                    <div class="header-item">
+                        <a href="/leader" class="text-white"><i class="fas fa-upload me-2"></i>LeaderBoard</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 text-end">
+                    <h3 class="team-name mb-0 text-white-50">{{username}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="container mt-5 levelLink">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item"><a href="/final">Finals</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Final Challenge 1</li>
+            </ol>
+        </nav>
+        <div class="card data rounded-2 mt-2 mb-2">
+            <div class="card-body  p-5">
+                <p class="h3 align-text-center mt-1 mb-3 fw-bold">Cross your scripts</p>
+                <p class="blockquote text-black-50 fw-bolder"><em>"Congrats for coming this far. Remember your past challenges. Use those skills to go further. Hey, do you know anything about API's?"</em></p>
+                <p class="mt-3">If you go further things get complicated. But API are important. Find the flag and submit it at the bottom.</p>
+                <span class="badge rounded-pill text-bg-primary">20 Pts</span>
+            </div>
+        </div>
+        <div class="card rounded-5">
+            <div class="accordion accordion-flush p-3" id="accordionFlushExample">
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Clue 1
+                        </button>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Check that Java script functions are really used</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                            Clue 2
+                        </button>
+                    </h2>
+                    <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Calling through phone is easy. But calling API......</div>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <h2 class="accordion-header">
+                        <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                            Clue 3
+                        </button>
+                    </h2>
+                    <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div class="accordion-body">Remember your most used browser functionality.</div>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        <div class=" container mt-2 mb-2 alertBox" id="alertsContainer"></div>
+        <div class="row mt-3 mb-3 rounded-3">
+            <div class="d-flex justify-content-center">
+                <div class="card mb-5">
+                    <form id="flagForm" class="p-4">
+                        <div class="mb-3 px-5">
+                            <input type="hidden" name="pblm_id" id="pblm_id" value="l2c1">
+                            <label for="flag" class="form-label">Submit your flag here</label>
+                            <input type="text" class="form-control" id="flag" name="flag">
+                            <button type="button" onclick="flagVerify()" class="btn btn-primary mt-2 text-align-center">Submit <i class="bi bi-flag-fill"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+        
+        function showAlert(message, type) {
+            var icon = "";
+            if (type === "success") {
+                icon = '<i class="bi bi-check-circle-fill"></i>';
+            } else if (type === "warning") {
+                icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+            } else if (type === "danger") {
+                icon = '<i class="bi bi-x-circle-fill"></i>';
+            }
+            var alertDiv = '<div class="alert alert-' + type + ' d-flex gap-2" role="alert">' + icon + '<div>' + message + '</div></div>';
+            $('#alertsContainer').html(alertDiv);
+        }
+        
+    function flagVerify() {
+        var formData = $('#flagForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: "/flag_verify",
+            data: formData,
+            success: function(response) {
+                console.log(response.status)
+                if (response.status === true) {
+                    // Flag is correct
+                    showAlert("CONGRATS! Your flag is correct", "success");
+                } else if (response.status === "repeat") {
+                    // Flag already conquered
+                    showAlert("Oops! Flag already conquered", "warning");
+                } else {
+                    // Incorrect flag
+                    showAlert("SORRY! Incorrect flag", "danger");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                showAlert("Error occurred", "danger");
+            }
+        });
+    }
+
+    function callAPI() {
+        $.ajax({
+            type: 'GET',
+            url: "/get_flag",
+            success: function(response) {
+                console.log(response.data);
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            }
+        });
+    }
+    
+    </script>
+</body>
+</html>
