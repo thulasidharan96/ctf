@@ -67,6 +67,32 @@ def home(request: Request, db: Session = Depends(get_db)):
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
+@router.get("/level2")
+def home(request: Request, db: Session = Depends(get_db)):
+    try:
+        token = request.session.get("user")
+        if not token:
+            raise HTTPException(status_code=401, detail="Unauthorized: User not logged in")
+
+        try:
+            payload = jwt.decode(token, BaseConfig.SECRET_KEY, algorithms=[BaseConfig.ALGORITHM])
+        except JWTError:
+            # JWT decoding error, redirect to login page
+            return RedirectResponse(url="/")
+
+        username = payload.get("user_name")
+        
+        if not username:
+            raise HTTPException(status_code=401, detail="Unauthorized: Invalid user token")
+
+        login_status = 1
+        return templates.TemplateResponse('level2.html', context={'request': request, "login_status": login_status, "username": username})
+    except HTTPException as http_exception:
+        return RedirectResponse(url="/")
+    except Exception as e:
+        print(e)
+        raise HTTPException(status_code=500, detail="Internal Server Error")
+
 
 @router.get('/final')
 def login(request:Request,):
@@ -174,7 +200,7 @@ def home(request: Request, db: Session = Depends(get_db)):
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-@router.get("/l1c4")
+@router.get("/l2c4")
 def home(request: Request, db: Session = Depends(get_db)):
     try:
         token = request.session.get("user")
@@ -193,14 +219,14 @@ def home(request: Request, db: Session = Depends(get_db)):
             raise HTTPException(status_code=401, detail="Unauthorized: Invalid user token")
 
         login_status = 1
-        return templates.TemplateResponse('level1/l1c4.html', context={'request': request, "login_status": login_status, "username": username})
+        return templates.TemplateResponse('level2/l2c4.html', context={'request': request, "login_status": login_status, "username": username})
     except HTTPException as http_exception:
         return RedirectResponse(url="/")
     except Exception as e:
         print(e)
         raise HTTPException(status_code=500, detail="Internal Server Error")
 
-@router.get("/l1c5")
+@router.get("/l2c5")
 def home(request: Request, db: Session = Depends(get_db)):
     try:
         token = request.session.get("user")
@@ -219,7 +245,7 @@ def home(request: Request, db: Session = Depends(get_db)):
             raise HTTPException(status_code=401, detail="Unauthorized: Invalid user token")
 
         login_status = 1
-        return templates.TemplateResponse('level1/l1c5.html', context={'request': request, "login_status": login_status, "username": username})
+        return templates.TemplateResponse('level2/l2c5.html', context={'request': request, "login_status": login_status, "username": username})
     except HTTPException as http_exception:
         return RedirectResponse(url="/")
     except Exception as e:
