@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CTF</title>
+    <link rel="icon" type="image/x-icon" href="templates/images/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="templates/css/style.css">
+</head>
+
+<body>
+
+    <div class="container-fluid bg-dark py-3">
+        <!-- Header container -->
+        <div class="container header">
+            <div class="row align-items-center justify-content-between">
+                <div class="col-lg-3 col-md-3 col-sm-12">
+                    <h1 class="text-white text-center mb-0">CTF Platform</h1>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-12 d-flex justify-content-center gap-5 headerLink">
+                    <div class="header-item">
+                        <a href="/home" class="text-white"><i class="fas fa-tasks me-2"></i>Challenges</a>
+                    </div>
+                    <div class="header-item">
+                        <a href="/leader" class="text-white"><i class="fas fa-upload me-2"></i>LeaderBoard</a>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-12 text-end">
+                    <h3 class="team-name mb-0 text-white-50">{{username}}</h3>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5 levelLink">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="/home">Home</a></li>
+                <li class="breadcrumb-item"><a href="/final">Bonus</a></li>
+                <li class="breadcrumb-item active" aria-current="page">Bonus Challenge 1</li>
+            </ol>
+        </nav>
+        <div class="card data rounded-2 mt-2 mb-2">
+            <div class="card-body  p-5">
+                <p class="h3 align-text-center mt-1 mb-3 fw-bold">Decrypt the Artifact</p>
+                <p class="blockquote text-black-50 fw-bolder"><em>"Congratulations on making it this far. Now, you're in
+                        the cryptographer's world. The path ahead isn’t easy, but with the right tools, the artifact
+                        will reveal its secrets. Can you unlock the encryption?"</em></p>
+                <p class="mt-3">Things are about to get tricky. The key to the artifact lies hidden in a riddle. Find
+                    the missing piece, solve the puzzle, and reveal the flag. Time to put your cryptography skills to
+                    the test.</p>
+                <span class="badge rounded-pill text-bg-primary">50 Pts</span>
+            </div>
+        </div>
+        <div class="card rounded-5">
+            <div class="accordion-item">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                        Clue 1: Download the Encrypted Artifact
+                    </button>
+                </h2>
+                <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        To begin, you need to download the encrypted artifact. The key is split into two parts. One part
+                        is already provided, and you must solve a riddle to find the second part. Download the encrypted
+                        file to begin decrypting.
+                    </div>
+                    <div class="mt-3">
+                        <!-- Provide the download link for the encrypted file -->
+                        <a href="/static/artifact.enc" download class="btn btn-primary">Download Encrypted Artifact</a>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item pt-3">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseTwo" aria-expanded="false" aria-controls="flush-collapseTwo">
+                        Clue 2: Decrypt Code
+                    </button>
+                </h2>
+                <div id="flush-collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        Here is the decryption script that will help you unlock the artifact. You already have part of
+                        the key, but you need to solve the riddle to find the second part. Once you have both parts of
+                        the key, you can complete this code to decrypt the file and retrieve the flag.
+
+                        <pre><code class="language-python">
+from Crypto.Cipher import AES
+from Crypto.Util.Padding import unpad
+
+# Key and IV setup - Combine the two parts of the key and pad it to 16 bytes
+key1 = b"ctf{bo"
+key2 = b"???'"
+key = key1 + key2  # Combine the key parts
+key = key.ljust(16, b'\0')  # Pad to ensure it's 16 bytes long
+iv = b"1234567890123456"  # 16 bytes IV
+
+# Read the ciphertext from the file
+with open("artifact.enc", "rb") as f:
+    ciphertext = f.read()
+
+# Decrypt the ciphertext
+cipher = AES.new(key, AES.MODE_CBC, iv)
+try:
+    decrypted_data = unpad(cipher.decrypt(ciphertext), 16)  # Remove padding after decryption
+    # Convert decrypted data to string and extract the flag
+    decrypted_text = decrypted_data.decode()
+    print(decrypted_text)
+except ValueError as e:
+    print(f"Decryption error: {e}")
+
+                        </code></pre>
+
+                        <p class="mt-3">Once you solve the riddle, you will have the second part of the key to complete
+                            this script.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="accordion-item pt-3">
+                <h2 class="accordion-header">
+                    <button class="accordion-button collapsed fw-bold" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree">
+                        Clue 3: Holds the Key2
+                    </button>
+                </h2>
+                <div id="flush-collapseThree" class="accordion-collapse collapse"
+                    data-bs-parent="#accordionFlushExample">
+                    <div class="accordion-body">
+                        The second part of the key (key2) is crucial for unlocking the artifact. It's hidden in plain
+                        sight. Look closely at the data.
+                        <br><br>
+                        To complete the key, you need to realize that **something** is written with the second part of
+                        the key. It's not immediately obvious, but pay attention to how the riddle connects to the key
+                        for this ctf{bonus} level.
+                        <br><br>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+        <div class=" container mt-2 mb-2 alertBox" id="alertsContainer"></div>
+        <div class="row mt-3 mb-3 rounded-3">
+            <div class="d-flex justify-content-center">
+                <div class="card mb-5">
+                    <form id="flagForm" class="p-4">
+                        <div class="mb-3 px-5">
+                            <input type="hidden" name="pblm_id" id="pblm_id" value="b11">
+                            <label for="flag" class="form-label">Submit your flag here</label>
+                            <input type="text" class="form-control" id="flag" name="flag">
+                            <button type="button" onclick="flagVerify()"
+                                class="btn btn-primary mt-2 text-align-center">Submit <i
+                                    class="bi bi-flag-fill"></i></button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+
+
+        function showAlert(message, type) {
+            var icon = "";
+            if (type === "success") {
+                icon = '<i class="bi bi-check-circle-fill"></i>';
+            } else if (type === "warning") {
+                icon = '<i class="bi bi-exclamation-triangle-fill"></i>';
+            } else if (type === "danger") {
+                icon = '<i class="bi bi-x-circle-fill"></i>';
+            }
+            var alertDiv = '<div class="alert alert-' + type + ' d-flex gap-2" role="alert">' + icon + '<div>' + message + '</div></div>';
+            $('#alertsContainer').html(alertDiv);
+        }
+
+        function flagVerify() {
+        var formData = $('#flagForm').serialize();
+        $.ajax({
+            type: 'POST',
+            url: "/flag_verify",
+            data: formData,
+            success: function(response) {
+                console.log(response.status)
+                if (response.status === true) {
+                    // Flag is correct
+                    showAlert("CONGRATS! Your flag is correct", "success");
+                } else if (response.status === "repeat") {
+                    // Flag already conquered
+                    showAlert("Oops! Flag already conquered", "warning");
+                } else {
+                    // Incorrect flag
+                    showAlert("SORRY! Incorrect flag", "danger");
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+                showAlert("Error occurred", "danger");
+            }
+        });
+    }
+
+    </script>
+</body>
+
+</html>

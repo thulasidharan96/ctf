@@ -21,9 +21,6 @@ router.mount("/templates", StaticFiles(directory="templates"), name="templates")
 @router.get("/home")
 def home(request: Request, db: Session = Depends(get_db)):
     try:
-        print("Request Headers:")
-        # for key, value in request.headers.items():
-        #     print(f"{key}: {value}")
         token = request.session.get("user")
         print(token)
         if not token:
@@ -32,16 +29,24 @@ def home(request: Request, db: Session = Depends(get_db)):
         try:
             payload = jwt.decode(token, BaseConfig.SECRET_KEY, algorithms=[BaseConfig.ALGORITHM])
         except JWTError:
-            # JWT decoding error, redirect to login page
             return RedirectResponse(url="/")
 
         username = payload.get("user_name")
-        
+       
         if not username:
             raise HTTPException(status_code=401, detail="Unauthorized: Invalid user token")
 
+        # Calculate total points for the user
+        user_scores = db.query(models.Score).filter(models.Score.Username == username).all()
+        total_points = sum(score.score for score in user_scores)
+
         login_status = 1
-        return templates.TemplateResponse('index.html', context={'request': request, "login_status": login_status, "username": username})
+        return templates.TemplateResponse('index.html', context={
+            'request': request, 
+            "login_status": login_status, 
+            "username": username,
+            "total_points": total_points
+        })
     except HTTPException as http_exception:
         return RedirectResponse(url="/")
     except Exception as e:
