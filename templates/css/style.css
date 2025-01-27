@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700");
+/* @import url("https://fonts.googleapis.com/css?family=Poppins:400,500,600,700");
 @import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
 
 :root {
@@ -12,7 +12,7 @@
     --warning: #f1c40f;
     --info: #3498db;
     
-    /* New modern colors */
+    /* New modern colors
     --gradient-primary: linear-gradient(135deg, #4a90e2 0%, #357abd 100%);
     --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     --hover-transition: all 0.3s ease;
@@ -117,7 +117,7 @@ body {
     }
 }
 
-/* Modern Scrollbar */
+/* Modern Scrollbar 
 ::-webkit-scrollbar {
     width: 10px;
 }
@@ -137,7 +137,7 @@ body {
     background: var(--accent);
 }
 
-/* Card Styles */
+/* Card Styles 
 .card {
     border: none;
     border-radius: 12px;
@@ -150,7 +150,7 @@ body {
     box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
 
-/* Button Styles */
+/* Button Styles 
 .btn {
     border-radius: 8px;
     padding: 10px 20px;
@@ -163,7 +163,7 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-/* Clue section styling */
+/* Clue section styling 
 .card.data {
     background-color: #f8f9fa;
     border: none;
@@ -205,4 +205,4 @@ body {
 .badge.rounded-pill:hover {
     transform: scale(1.05);
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
+} *
